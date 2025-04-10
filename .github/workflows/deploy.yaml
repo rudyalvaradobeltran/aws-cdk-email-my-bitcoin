@@ -1,0 +1,61 @@
+name: DEPLOY
+
+on:
+  push:
+    branches: 
+      - main
+
+jobs:
+  deploy:
+    name: deploy
+    environment:
+      name: main
+    runs-on: ubuntu-latest
+    env:
+      CDK_DEFAULT_REGION: ${{ vars.AWS_DEFAULT_REGION }}
+      CDK_DEFAULT_ACCOUNT: ${{ vars.CDK_DEFAULT_ACCOUNT }}
+      EMAIL_RECIPIENT: ${{ vars.EMAIL_RECIPIENT }}
+      EMAIL_SENDER: ${{ vars.EMAIL_SENDER }}
+      EMAIL_SENDER_NAME: ${{ vars.EMAIL_SENDER_NAME }}
+      SCHEDULE_RATE_IN_SECONDS: ${{ vars.SCHEDULE_RATE_IN_SECONDS }}
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      
+      - name: build lambda-bitcoin-stack
+        run: |
+          cd src/LambdaBitcoin
+          npm install
+          npm run build
+
+      - name: zip lambda-bitcoin-stack
+        run: |
+          cd src/LambdaBitcoin
+          zip -r ../../LambdaBitcoin.zip .    
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          role-to-assume: ${{ vars.AWS_GITHUB_OIDC_ROLE }}
+          aws-region: ${{ vars.AWS_DEFAULT_REGION }}
+
+      - name: install dependencies
+        run: |
+          sudo npm install -g aws-cdk
+
+      - name: configure aws account and prepare deploy
+        run: |
+          cd deploy && npm install
+
+      - name: cdk synth
+        run: |
+          cd deploy
+          cdk synth
+
+      - name: deploy lambda stack
+        run: cd deploy && cdk deploy --require-approval never LambdaBitcoinStack --outputs-file output.json
