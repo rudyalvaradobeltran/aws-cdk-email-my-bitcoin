@@ -61,7 +61,7 @@ export class LambdaBitcoinStack extends Stack {
     });
 
     new Rule(this, "rule", {
-      schedule: Schedule.rate(Duration.minutes(20)),
+      schedule: Schedule.rate(Duration.seconds(parseInt(process.env.SCHEDULE_RATE_IN_SECONDS!))),
       targets: [new LambdaFunction(lambdaBitcoin)],
     });
   }
