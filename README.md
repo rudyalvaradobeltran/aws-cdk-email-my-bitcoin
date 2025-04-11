@@ -1,6 +1,6 @@
 # AWS CDK Email My Bitcoin
 
-This project is an AWS CDK application that sets up an automated system to fetch the current Bitcoin price every n seconds and send it via email using Amazon SES. The project deployment is automated using GitHub Actions.
+This project is an AWS CDK application that sets up an automated system to fetch the current Bitcoin price every n seconds and send it via email using Amazon SES. Deployment is automated with GitHub Actions.
 
 ## Features
 
