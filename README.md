@@ -1,6 +1,6 @@
 # AWS CDK Email My Bitcoin
 
-This project is an AWS CDK application that sets up an automated system to fetch the current Bitcoin price every n days/hours/minutes and send it via email using Amazon SES. The email address is securely stored and retrieved from Amazon Secrets Manager. The project deployment is automated using GitHub Actions.
+This project is an AWS CDK application that sets up an automated system to fetch the current Bitcoin price every n seconds and send it via email using Amazon SES. The project deployment is automated using GitHub Actions.
 
 ## Features
 
@@ -15,7 +15,7 @@ This project is an AWS CDK application that sets up an automated system to fetch
 - Node.js installed
 - AWS CDK installed
 - GitHub account
-- AWS account with permissions for EventBridge, Lambda, and SES
+- AWS account with permissions for EventBridge, Lambda, SES and IAM roles
 
 ## Installation using Github Actions
 
@@ -29,7 +29,7 @@ This project is an AWS CDK application that sets up an automated system to fetch
    - EMAIL_SENDER
    - EMAIL_SENDER_NAME
    - SCHEDULE_RATE_IN_SECONDS
-   - API_URL
+   - API_URL (https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd)
     
 3. **Configure your OIDC role on your AWS account**
 

@@ -31,10 +31,9 @@ export class LambdaBitcoinStack extends Stack {
         actions: [
           "logs:CreateLogGroup",
           "logs:CreateLogStream",
-          "logs:PutLogEvents",
-          "secretsmanager:GetSecretValue"
+          "logs:PutLogEvents"
         ],
-        resources: ["*"]
+        resources: [`arn:aws:logs:${this.region}:${this.account}:log-group:/aws/lambda/LambdaBitcoinFunction:*`]
       })
     );
 
