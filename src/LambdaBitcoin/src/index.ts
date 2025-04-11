@@ -10,13 +10,10 @@ let client: SESv2Client;
 const lambdaHandler = async (): Promise<void> => {
   try {
     if (!client) client = new SESv2Client({});
-    let senderemail: string = process.env.senderEmail!;
-    let senderName: string = process.env.senderName!
-    let recipientEmail: string = process.env.recipientEmail!
     const response = await axios.get(process.env.apiUrl!);
     const input: SendEmailCommandInput = {
-      FromEmailAddress: `${senderName} <${senderemail}>`,
-      Destination: { ToAddresses: [ recipientEmail ] },
+      FromEmailAddress: `${process.env.senderName!} <${process.env.senderEmail!}>`,
+      Destination: { ToAddresses: [ process.env.recipientEmail! ] },
       EmailTags: [{ Name: 'type', Value: 'bitcoin' }],
       Content: {
         Simple: {
@@ -24,9 +21,8 @@ const lambdaHandler = async (): Promise<void> => {
           Body: {
             Html: {
               Charset: 'UTF-8',
-              Data: template(response.data.bitcoin.usd, senderName)
-            },
-            Text: { Data: 'TEST EMAIL' }
+              Data: template(response.data.bitcoin.usd, process.env.senderName!)
+            }
           }
         }
       }
