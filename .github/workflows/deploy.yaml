@@ -27,13 +27,13 @@ jobs:
         with:
           node-version: 18
       
-      - name: build lambda-bitcoin-stack
+      - name: Build lambda-bitcoin-stack
         run: |
           cd src/LambdaBitcoin
           npm install
           npm run build
 
-      - name: zip lambda-bitcoin-stack
+      - name: Zip lambda-bitcoin-stack
         run: |
           cd src/LambdaBitcoin
           zip -r ../../LambdaBitcoin.zip .    
@@ -44,18 +44,18 @@ jobs:
           role-to-assume: ${{ vars.AWS_GITHUB_OIDC_ROLE }}
           aws-region: ${{ vars.AWS_DEFAULT_REGION }}
 
-      - name: install dependencies
+      - name: Install dependencies
         run: |
           sudo npm install -g aws-cdk
 
-      - name: configure aws account and prepare deploy
+      - name: Configure aws account and prepare deploy
         run: |
           cd deploy && npm install
 
-      - name: cdk synth
+      - name: CDK synth
         run: |
           cd deploy
           cdk synth
 
-      - name: deploy lambda stack
+      - name: Deploy lambda stack
         run: cd deploy && cdk deploy --require-approval never LambdaBitcoinStack --outputs-file output.json
