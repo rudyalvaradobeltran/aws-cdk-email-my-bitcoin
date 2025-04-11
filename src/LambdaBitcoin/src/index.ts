@@ -1,7 +1,7 @@
 import { Logger, injectLambdaContext } from "@aws-lambda-powertools/logger";
 import { SESv2Client, SendEmailCommand, SendEmailCommandInput } from "@aws-sdk/client-sesv2"
 import middy from "@middy/core";
-import * as axios from "./services/axios";
+import axios from "axios";
 import template from "./email/template";
 
 const logger = new Logger({ serviceName: "lambda-bitcoin" });
@@ -13,7 +13,7 @@ const lambdaHandler = async (): Promise<void> => {
     let senderemail: string = process.env.senderEmail!;
     let senderName: string = process.env.senderName!
     let recipientEmail: string = process.env.recipientEmail!
-    const response = await axios.default.get('bitcoin');
+    const response = await axios.get(process.env.apiUrl!);
     const input: SendEmailCommandInput = {
       FromEmailAddress: `${senderName} <${senderemail}>`,
       Destination: { ToAddresses: [ recipientEmail ] },
@@ -24,7 +24,7 @@ const lambdaHandler = async (): Promise<void> => {
           Body: {
             Html: {
               Charset: 'UTF-8',
-              Data: template(response.data.data.priceUsd.split(".")[0], senderName)
+              Data: template(response.data.bitcoin.usd, senderName)
             },
             Text: { Data: 'TEST EMAIL' }
           }

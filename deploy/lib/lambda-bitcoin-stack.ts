@@ -55,7 +55,8 @@ export class LambdaBitcoinStack extends Stack {
       environment: {
         senderEmail: process.env.EMAIL_SENDER!,
         senderName: process.env.EMAIL_SENDER_NAME!,
-        recipientEmail: process.env.EMAIL_RECIPIENT!
+        recipientEmail: process.env.EMAIL_RECIPIENT!,
+        apiUrl: process.env.API_URL!
       },
       role: role
     });

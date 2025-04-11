@@ -18,6 +18,7 @@ jobs:
       EMAIL_SENDER: ${{ vars.EMAIL_SENDER }}
       EMAIL_SENDER_NAME: ${{ vars.EMAIL_SENDER_NAME }}
       SCHEDULE_RATE_IN_SECONDS: ${{ vars.SCHEDULE_RATE_IN_SECONDS }}
+      API_URL: ${{ vars.API_URL }}
     permissions:
       contents: read
       id-token: write

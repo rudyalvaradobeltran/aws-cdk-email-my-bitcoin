@@ -5,7 +5,7 @@ This project is an AWS CDK application that sets up an automated system to fetch
 ## Features
 
 - **EventBridge Rule**: Triggers a Lambda function every n seconds.
-- **Lambda Function**: Calls an external API (api.coincap.io) to get the current Bitcoin price.
+- **Lambda Function**: Calls an external API (api.coingecko.com) to get the current Bitcoin price.
 - **Amazon SES**: Sends the Bitcoin price via email.
 - **GitHub Actions**: Automates the deployment process and saves vars securely.
 
@@ -29,6 +29,7 @@ This project is an AWS CDK application that sets up an automated system to fetch
    - EMAIL_SENDER
    - EMAIL_SENDER_NAME
    - SCHEDULE_RATE_IN_SECONDS
+   - API_URL
     
 3. **Configure your OIDC role on your AWS account**
 
