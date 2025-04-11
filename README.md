@@ -2,6 +2,8 @@
 
 This project is an AWS CDK application that sets up an automated system to fetch the current Bitcoin price every n seconds and send it via email using Amazon SES. Deployment is automated with GitHub Actions.
 
+![aws-1 drawio](https://github.com/user-attachments/assets/f20dcffa-4309-4f48-b480-c6ea195c2bea)
+
 ## Features
 
 - **EventBridge Rule**: Triggers a Lambda function every n seconds.
