@@ -2,7 +2,7 @@ import { Logger, injectLambdaContext } from "@aws-lambda-powertools/logger";
 import { SESv2Client, SendEmailCommand, SendEmailCommandInput } from "@aws-sdk/client-sesv2"
 import middy from "@middy/core";
 import axios from "axios";
-import template from "./email/template";
+import template from "./lib/email/template";
 
 const logger = new Logger({ serviceName: "lambda-bitcoin" });
 let client: SESv2Client;
